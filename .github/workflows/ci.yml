@@ -20,6 +20,39 @@ jobs:
           scandir: "."
           severity: warning
 
+  install-smoke:
+    name: install.sh smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7 # ratchet:actions/checkout@v4
+      - name: Run install into temp HOME and assert all targets
+        run: |
+          FAKE_HOME=$(mktemp -d)
+          # Pre-create all 5 agent dirs so install.sh picks up every target
+          mkdir -p "$FAKE_HOME/.claude" \
+                   "$FAKE_HOME/.cursor" \
+                   "$FAKE_HOME/.config/opencode" \
+                   "$FAKE_HOME/.codex" \
+                   "$FAKE_HOME/.hermes"
+          HOME="$FAKE_HOME" bash ./install.sh
+          ok=true
+          for path in \
+            ".claude/skills/ops-bro/SKILL.md" \
+            ".cursor/skills/ops-bro/SKILL.md" \
+            ".config/opencode/skills/ops-bro/SKILL.md" \
+            ".codex/skills/ops-bro/SKILL.md" \
+            ".hermes/skills/ops-bro/SKILL.md" \
+            ".claude/commands/ops-bro.md" \
+            ".config/opencode/command/ops-bro.md"; do
+            if [[ -f "$FAKE_HOME/$path" ]]; then
+              echo "OK: $path"
+            else
+              echo "MISSING: $path" >&2
+              ok=false
+            fi
+          done
+          $ok
+
   skill-frontmatter:
     name: Validate SKILL.md frontmatter & structure
     runs-on: ubuntu-latest
