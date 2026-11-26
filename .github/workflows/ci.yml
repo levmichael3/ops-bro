@@ -13,7 +13,7 @@ jobs:
     name: ShellCheck install.sh
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@v7 # ratchet:actions/checkout@v4
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@00b27aa7cb85167568cb48a3838b75f4265f2bca # v2.0.0 (2024-06-20)
         with:
@@ -24,7 +24,7 @@ jobs:
     name: Validate SKILL.md frontmatter & structure
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@v7 # ratchet:actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5 # ratchet:actions/setup-python@v5
         with:
@@ -61,9 +61,9 @@ jobs:
     name: Lint Markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@v7 # ratchet:actions/checkout@v4
       - name: Lint Markdown files
-        uses: DavidAnson/markdownlint-cli2-action@v19 # ratchet:DavidAnson/markdownlint-cli2-action@v19
+        uses: DavidAnson/markdownlint-cli2-action@v25 # ratchet:DavidAnson/markdownlint-cli2-action@v19
         with:
           globs: |
             README.md
