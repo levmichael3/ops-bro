@@ -1,12 +1,12 @@
 # Example 3: Generating a Zero-Bloat Runbook
 
-### User
+## User
 
 > Write a short, clean runbook for high 5xx error rates on our ingress gateway.
 
-### `ops-bro` (Clean Artifact Mode)
+## `ops-bro` (Clean Artifact Mode)
 
-# Runbook: Ingress Gateway Elevated 5xx Rate
+## Runbook: Ingress Gateway Elevated 5xx Rate
 
 ## 1. Symptom & Blast Radius
 

@@ -1,10 +1,10 @@
 # Example 1: Kubernetes `CrashLoopBackOff` + `/ops-bro`
 
-### User
+## User
 
 > Pod `checkout-worker-7d9f8b6c4-x2k9p` is stuck in `CrashLoopBackOff` right after deploy. Logs cut off mid-startup.
 
-### `ops-bro` (Default Pinpoint Mode)
+## `ops-bro` (Default Pinpoint Mode)
 
 The container is likely hitting either a premature `livenessProbe` failure during cold start or an `OOMKilled` (`Exit Code 137`) event before flushing stdout.
 
@@ -20,11 +20,9 @@ kubectl logs checkout-worker-7d9f8b6c4-x2k9p -n prod --previous
 
 ---
 
-### User
+## User: `/ops-bro`
 
-> `/ops-bro`
-
-### `ops-bro` (Plain-Language Translation)
+## `ops-bro` (Plain-Language Translation)
 
 Your `checkout-worker-7d9f8b6c4-x2k9p` pod is dying during startup before it even finishes printing its logs, so Kubernetes keeps restarting it over and over (`CrashLoopBackOff`). There are two usual suspects: either it ran out of RAM (`OOMKilled` / `Exit Code 137`), or Kubernetes asked "are you alive yet?" too early (`Liveness probe failed`) and killed it while it was still booting up.
 
