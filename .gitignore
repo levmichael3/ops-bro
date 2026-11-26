@@ -1,0 +1,13 @@
+# Local dev leftovers
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Editor / IDE
+.vscode/
+.idea/
+*.iml
+
+# Agent local state (never commit auth, tokens, or session data)
+*.log

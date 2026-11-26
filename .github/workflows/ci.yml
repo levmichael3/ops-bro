@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    name: ShellCheck install.sh
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@00b27aa7cb85167568cb48a3838b75f4265f2bca # v2.0.0 (2024-06-20)
+        with:
+          scandir: "."
+          severity: warning
+
+  skill-frontmatter:
+    name: Validate SKILL.md frontmatter & structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5 # ratchet:actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate frontmatter
+        run: |
+          python3 - <<'EOF'
+          import re, sys
+          from pathlib import Path
+
+          text = Path("SKILL.md").read_text()
+          m = re.match(r"^---\n(.*?)\n---\n", text, re.DOTALL)
+          assert m, "SKILL.md must start with YAML frontmatter delimited by ---"
+          front = m.group(1)
+
+          # Minimal key check without external deps
+          def get(key):
+              mm = re.search(rf"^{key}:\s*(.+)$", front, re.MULTILINE)
+              return mm.group(1).strip() if mm else None
+
+          name = get("name")
+          desc = get("description")
+          assert name == "ops-bro", f"name must be 'ops-bro', got {name!r}"
+          assert desc, "description is required in frontmatter"
+          assert len(desc) >= 20, "description looks too short"
+
+          for section in ("Core Communication Rules", "Clean Artifact Mode", "/ops-bro"):
+              assert section in text, f"SKILL.md missing section: {section}"
+
+          print("SKILL.md frontmatter & structure OK")
+          EOF
+
+  markdownlint:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
+      - name: Lint Markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v19 # ratchet:DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            README.md
+            CONTRIBUTING.md
+            SKILL.md
+            examples/**/*.md
