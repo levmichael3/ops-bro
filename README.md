@@ -69,6 +69,7 @@ Refer to the included examples and MIT LICENSE for further reference:
 - [`examples/01-k8s-crashloop.md`](examples/01-k8s-crashloop.md) — Kubernetes `CrashLoopBackOff` diagnosis, then `/ops-bro` plain-language translation.
 - [`examples/02-iac-state-lock.md`](examples/02-iac-state-lock.md) — Pasting a raw declarative IaC state-lock error into `/ops-bro`.
 - [`examples/03-clean-runbook.md`](examples/03-clean-runbook.md) — Zero-bloat ingress-gateway 5xx runbook via Clean Artifact Mode.
+- [`examples/04-bloated-ticket-to-adr.md`](examples/04-bloated-ticket-to-adr.md) — Over-engineered Jira ticket distilled into a crisp ADR, then `/ops-bro` translation.
 
 ### Example: Kubernetes `CrashLoopBackOff` + `/ops-bro`
 
