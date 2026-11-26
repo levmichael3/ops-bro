@@ -63,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
       - name: Lint Markdown files
-        uses: DavidAnson/markdownlint-cli2-action@v19 # ratchet:DavidAnson/markdownlint-cli2-action@v19
+        uses: DavidAnson/markdownlint-cli2-action@v25 # ratchet:DavidAnson/markdownlint-cli2-action@v19
         with:
           globs: |
             README.md
