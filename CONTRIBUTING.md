@@ -14,12 +14,13 @@ Examples live in `examples/` and are numbered sequentially:
 examples/01-k8s-crashloop.md
 examples/02-iac-state-lock.md
 examples/03-clean-runbook.md
-examples/04-your-new-pattern.md   <-- yours
+examples/04-bloated-ticket-to-adr.md
+examples/05-your-new-pattern.md   <-- yours
 ```
 
 ### 1. Pick a real pattern
 
-Good topics: `ImagePullBackOff` loops, PVC `Pending` binds, Terraform drift after manual console edits, Helm release stuck in `pending-install`, ingress `504` storms, OOMKilled sidecars, expired cert-manager certs, GitOps sync loops, flaky canary analysis, error-budget burn alerts.
+Good topics: `ImagePullBackOff` loops, PVC `Pending` binds, Terraform drift after manual console edits, Helm release stuck in `pending-install`, ingress `504` storms, OOMKilled sidecars, expired cert-manager certs, GitOps sync loops, flaky canary analysis, error-budget burn alerts, over-engineered stakeholder tickets hiding a single bottleneck.
 
 Bad topics: anything tied to a single cloud vendor's proprietary console, marketing comparisons, or hypothetical errors you haven't seen in the wild.
 
@@ -70,7 +71,7 @@ every command, flag, path, port, and exit code 100% verbatim>
 Add one bullet under the `## Examples` section (use plain path here, not a link — the file doesn't exist yet):
 
 ```markdown
-- `examples/04-your-new-pattern.md` — One-line description of the pattern.
+- `examples/05-your-new-pattern.md` — One-line description of the pattern.
 ```
 
 ### 4. Run the checks locally
@@ -106,7 +107,7 @@ CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) runs the same checks
 
 ## Pull request checklist
 
-- [ ] Example filename is next sequential number (`NN-slug.md`).
+- [ ] Example filename is next sequential number (`NN-slug.md`, currently `05-...`).
 - [ ] File has User prompt → pinpoint answer → `/ops-bro` → plain translation.
 - [ ] All commands, flags, paths, ports, exit codes identical in both modes.
 - [ ] README `## Examples` bullet added.
